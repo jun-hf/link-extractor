@@ -11,20 +11,6 @@ import (
 	"golang.org/x/net/html"
 )
 
-// func processDoc(node *html.Node) {
-// 	if node.Type == html.ElementNode && node.Data == "a" {
-// 		for _, a := range node.Attr {
-// 			if a.Key == "href" {
-// 				fmt.Println(a.Val)
-// 				break
-// 			}
-// 		}
-// 	}
-// 	for c := node.FirstChild; c!= nil; c = c.NextSibling {
-// 		processDoc(c)
-// 	}
-// }
-
 func processFile(filePath string) (io.Reader, error){
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -64,7 +50,7 @@ func buildLink(node *html.Node) (Link, error){
 
 // the first string of the returned slice will be the content of the node passsed into this func
 func extractAchorContent(node *html.Node, content *[]string) ([]string){
-	*content = append(*content, node.Data)
+	*content = append(*content, strings.TrimSpace(node.Data))
 	for c := node.FirstChild; c != nil; c = c.NextSibling {
 		extractAchorContent(c, content)
 	}
