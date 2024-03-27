@@ -67,6 +67,25 @@ func buildAchorList(node *html.Node, nodeList *[]*html.Node) []*html.Node {
 	return *nodeList
 }
 
+func Parser(reader io.Reader) ([]Link, error) {
+	doc, err := html.Parse(reader)
+	if err != nil {
+		return nil, err
+	}
+	var anchorList []*html.Node = make([]*html.Node, 0)
+	result := buildAchorList(doc, &anchorList)
+
+	returnList := make([]Link, 0)
+	for _, achor := range(result) {
+		link, err := buildLink(achor)
+		if err != nil {
+			log.Fatal(err)
+		}
+		returnList = append(returnList, link)
+	}
+	return returnList, nil
+}
+
 func main() {
 	htmlFilePath :=flag.String("file", "example2.html", "The html file path")
 	flag.Parse()
