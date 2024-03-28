@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"flag"
 	"io"
 	"log"
 	"os"
@@ -86,28 +85,28 @@ func Parser(reader io.Reader) ([]Link, error) {
 	return returnList, nil
 }
 
-func main() {
-	htmlFilePath :=flag.String("file", "example2.html", "The html file path")
-	flag.Parse()
-	reader, err := processFile(*htmlFilePath)
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-	doc, err := html.Parse(reader)
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-	var anchorList []*html.Node = make([]*html.Node, 0)
-	result := buildAchorList(doc, &anchorList)
+// func main() {
+// 	htmlFilePath :=flag.String("file", "example2.html", "The html file path")
+// 	flag.Parse()
+// 	reader, err := processFile(*htmlFilePath)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 		os.Exit(1)
+// 	}
+// 	doc, err := html.Parse(reader)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 		os.Exit(1)
+// 	}
+// 	var anchorList []*html.Node = make([]*html.Node, 0)
+// 	result := buildAchorList(doc, &anchorList)
 
-	for _, achor := range(result) {
-		link, err := buildLink(achor)
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Print(link)
-	}
+// 	for _, achor := range(result) {
+// 		link, err := buildLink(achor)
+// 		if err != nil {
+// 			log.Fatal(err)
+// 		}
+// 		log.Print(link)
+// 	}
 
-}
+// }
