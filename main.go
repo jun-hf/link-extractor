@@ -66,7 +66,7 @@ func buildAchorList(node *html.Node, nodeList *[]*html.Node) []*html.Node {
 	return *nodeList
 }
 
-func Parser(reader io.Reader) ([]Link, error) {
+func Parse(reader io.Reader) ([]Link, error) {
 	doc, err := html.Parse(reader)
 	if err != nil {
 		return nil, err
